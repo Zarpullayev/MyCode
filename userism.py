@@ -1,11 +1,18 @@
 import os
 import base64
 
+# Qurilma ID ni olish (Haqiqiy qurilma uchun moslashtirish mumkin)
+def get_device_id():
+    return "123456789ABC"  # Bu joyga haqiqiy qurilma ID olish kodi qo'shilishi kerak
+
+# Qurilmaning ID sini olish
+current_device = get_device_id()
+
 # GitHub Secrets'dan DEVICE_ID ni olish
 allowed_device = os.getenv("DEVICE_ID")
 
-# Qurilmaning haqiqiy ID sini olish (Buni avtomatlashtirish mumkin)
-current_device = "123456789ABC"  # Bu joyga haqiqiy qurilma ID olish kodi qo'shilishi mumkin
+# Qurilma ID sini ekranga chiqarish
+print(f"🖥 Qurilma ID: {current_device}")
 
 # Tekshirish
 if allowed_device is None:
