@@ -1,0 +1,24 @@
+name: Run Encrypted Script
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodni yuklash
+        uses: actions/checkout@v3
+
+      - name: Pythonni o‘rnatish
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Kodni ishga tushirish
+        env:
+          DEVICE_ID: ${{ secrets.DEVICE_ID }}
+        run: python userism.py
