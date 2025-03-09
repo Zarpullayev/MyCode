@@ -1,32 +1,3 @@
-import os
 import base64
-
-# Qurilma ID ni olish (Haqiqiy qurilma uchun moslashtirish mumkin)
-def get_device_id():
-    return "123456789ABC"  # Bu joyga haqiqiy qurilma ID olish kodi qo'shilishi kerak
-
-# Qurilmaning ID sini olish
-current_device = get_device_id()
-
-# GitHub Secrets'dan DEVICE_ID ni olish
-allowed_device = os.getenv("DEVICE_ID")
-
-# Qurilma ID sini ekranga chiqarish
-print(f"🖥 Qurilma ID: {current_device}")
-
-# Tekshirish
-if allowed_device is None:
-    print("❌ Ruxsat yo'q: GitHub Secrets'da DEVICE_ID topilmadi!")
-    exit()
-
-if current_device != allowed_device:
-    print("❌ Ruxsat yo'q: Noto'g'ri qurilma!")
-    exit()
-
-print("✅ Ruxsat berildi! Kod ishga tushmoqda...")
-
-# Shifrlangan kod (Base64 formatida)
-encoded_script = "cHJpbnQoIk1hbmJhIGtvZCBzaWZybGFuZ2FuZGlyIik="  # Bu joyga asl shifrlangan kod joylanadi
-
-# Kodni dekod qilish va ishga tushirish
+encoded_script = """CmltcG9ydCBvcwoKIyDwn5OMICoqT0NISVEgS09EOiBRdXJpbG1hIElEIG9saXNoIHZhIGNoaXFhcmlzaCoqICAKZGVmIGdldF9kZXZpY2VfaWQoKToKICAgIHJldHVybiAiMTIzNDU2Nzg5QUJDIiAgIyBCdSBqb3lnYSBoYXFpcWl5IHF1cmlsbWEgSUQgb2xpc2gga29kaSBxbydzaGlsaXNoaSBrZXJhawoKIyBRdXJpbG1hbmluZyBJRCBzaW5pIG9saXNoCmN1cnJlbnRfZGV2aWNlID0gZ2V0X2RldmljZV9pZCgpCgojIFF1cmlsbWEgSUQgc2luaSBla3JhbmdhIGNoaXFhcmlzaApwcmludChmIvCflqUgUXVyaWxtYSBJRDoge2N1cnJlbnRfZGV2aWNlfSIpCgojIEdpdEh1YiBTZWNyZXRzJ2RhbiBERVZJQ0VfSUQgbmkgb2xpc2gKYWxsb3dlZF9kZXZpY2UgPSBvcy5nZXRlbnYoIkRFVklDRV9JRCIpCgojIFRla3NoaXJpc2gKaWYgYWxsb3dlZF9kZXZpY2UgaXMgTm9uZToKICAgIHByaW50KCLinYwgUnV4c2F0IHlvJ3E6IEdpdEh1YiBTZWNyZXRzJ2RhIERFVklDRV9JRCB0b3BpbG1hZGkhIikKICAgIGV4aXQoKQoKaWYgY3VycmVudF9kZXZpY2UgIT0gYWxsb3dlZF9kZXZpY2U6CiAgICBwcmludCgi4p2MIFJ1eHNhdCB5bydxOiBOb3RvJ2cncmkgcXVyaWxtYSEiKQogICAgZXhpdCgpCgpwcmludCgi4pyFIFJ1eHNhdCBiZXJpbGRpISBLb2QgaXNoZ2EgdHVzaG1vcWRhLi4uIikKCiMg8J+TjCAqKklTSENISSBLT0QqKgpwcmludCgiTWFuYSBrb2Qgc2hpZnJsYW5nYW5kaXIiKQo="""
 exec(base64.b64decode(encoded_script).decode('utf-8'))
