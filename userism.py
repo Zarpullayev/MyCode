@@ -1,3 +1,33 @@
-import base64
-encoded_script = """CmltcG9ydCBvcwoKIyDwn5OMICoqT0NISVEgS09EOiBRdXJpbG1hIElEIG9saXNoIHZhIGNoaXFhcmlzaCoqICAKZGVmIGdldF9kZXZpY2VfaWQoKToKICAgIHJldHVybiAiMTIzNDU2Nzg5QUJDIiAgIyBCdSBqb3lnYSBoYXFpcWl5IHF1cmlsbWEgSUQgb2xpc2gga29kaSBxbydzaGlsaXNoaSBrZXJhawoKIyBRdXJpbG1hbmluZyBJRCBzaW5pIG9saXNoCmN1cnJlbnRfZGV2aWNlID0gZ2V0X2RldmljZV9pZCgpCgojIFF1cmlsbWEgSUQgc2luaSBla3JhbmdhIGNoaXFhcmlzaApwcmludChmIvCflqUgUXVyaWxtYSBJRDoge2N1cnJlbnRfZGV2aWNlfSIpCgojIEdpdEh1YiBTZWNyZXRzJ2RhbiBERVZJQ0VfSUQgbmkgb2xpc2gKYWxsb3dlZF9kZXZpY2UgPSBvcy5nZXRlbnYoIkRFVklDRV9JRCIpCgojIFRla3NoaXJpc2gKaWYgYWxsb3dlZF9kZXZpY2UgaXMgTm9uZToKICAgIHByaW50KCLinYwgUnV4c2F0IHlvJ3E6IEdpdEh1YiBTZWNyZXRzJ2RhIERFVklDRV9JRCB0b3BpbG1hZGkhIikKICAgIGV4aXQoKQoKaWYgY3VycmVudF9kZXZpY2UgIT0gYWxsb3dlZF9kZXZpY2U6CiAgICBwcmludCgi4p2MIFJ1eHNhdCB5bydxOiBOb3RvJ2cncmkgcXVyaWxtYSEiKQogICAgZXhpdCgpCgpwcmludCgi4pyFIFJ1eHNhdCBiZXJpbGRpISBLb2QgaXNoZ2EgdHVzaG1vcWRhLi4uIikKCiMg8J+TjCAqKklTSENISSBLT0QqKgpwcmludCgiTWFuYSBrb2Qgc2hpZnJsYW5nYW5kaXIiKQo="""
-exec(base64.b64decode(encoded_script).decode('utf-8'))
+import os
+import platform
+import uuid
+import socket
+
+# 📌 **1️⃣ Qurilmaning haqiqiy Device ID sini olish**  
+def get_device_id():
+    system_name = platform.system()  # Windows, Linux, macOS
+    node_name = platform.node()  # Qurilma nomi
+    mac_address = ':'.join(['{:02x}'.format((uuid.getnode() >> elements) & 0xFF) for elements in range(0, 2*6, 8)][::-1])  # MAC Address
+    hostname = socket.gethostname()  # Kompyuter nomi
+    return f"{system_name}-{node_name}-{mac_address}-{hostname}"  # Yagona Device ID
+
+# Qurilma ID ni olish va ekranga chiqarish
+current_device = get_device_id()
+print(f"🖥 Qurilma ID: {current_device}")
+
+# 📌 **2️⃣ GitHub Secrets'dan DEVICE_ID ni olish**
+allowed_device = os.getenv("DEVICE_ID")
+
+# 📌 **3️⃣ Qurilma ID ni tekshirish**
+if allowed_device is None:
+    print("❌ Ruxsat yo'q: GitHub Secrets'da DEVICE_ID topilmadi!")
+    exit()
+
+if current_device != allowed_device:
+    print("❌ Ruxsat yo'q: Noto'g'ri qurilma!")
+    exit()
+
+print("✅ Ruxsat berildi! Kod ishga tushmoqda...")
+
+# 📌 **4️⃣ Asosiy kod (Bu yerga sening koding kiradi)**
+print("🚀 Asosiy kod ishlayapti...")
